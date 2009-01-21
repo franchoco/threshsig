@@ -15,7 +15,7 @@ import java.security.MessageDigest;
 public class SigShare {
 
   // Constants and variables
-  // ............................................................................
+  //............................................................................
   private final static boolean CHECKVERIFIER = true;
 
   private int id;
@@ -25,7 +25,7 @@ public class SigShare {
   private Verifier sigVerifier;
 
   // Constructors
-  // ............................................................................
+  //............................................................................
   public SigShare(final int id, final BigInteger sig, final Verifier sigVerifier) {
     this.id = id;
     this.sig = sig;
@@ -38,7 +38,7 @@ public class SigShare {
   }
 
   // Public Methods
-  // ............................................................................
+  //............................................................................
 
   /**
    * Return this share's id. Needed for Lagrange interpolation
@@ -46,7 +46,7 @@ public class SigShare {
    * @return the id of this key share
    */
   public int getId() {
-    return this.id;
+    return id;
   }
 
   /**
@@ -55,7 +55,7 @@ public class SigShare {
    * @return a BigInteger representation of this signature
    */
   public BigInteger getSig() {
-    return this.sig;
+    return sig;
   }
 
   /**
@@ -64,7 +64,7 @@ public class SigShare {
    * @return A verifier for this signaute
    */
   public Verifier getSigVerifier() {
-    return this.sigVerifier;
+    return sigVerifier;
   }
 
   /**
@@ -73,7 +73,7 @@ public class SigShare {
    * @return a byte array representation of this signature
    */
   public byte[] getBytes() {
-    return this.sig.toByteArray();
+    return sig.toByteArray();
   }
 
   @Override
@@ -82,21 +82,21 @@ public class SigShare {
   }
 
   // Static methods
-  // ............................................................................
-  public static boolean verify(final byte[] data, final SigShare[] sigs,
-      final int k, final int l, final BigInteger n, final BigInteger e)
-      throws ThresholdSigException {
+  //............................................................................
+  public static boolean verify(final byte[] data, final SigShare[] sigs, final int k, final int l,
+      final BigInteger n, final BigInteger e) throws ThresholdSigException {
     // Sanity Check - make sure there are at least k unique sigs out of l
     // possible
 
     final boolean[] haveSig = new boolean[l];
     for (int i = 0; i < k; i++) {
       // debug("Checking sig " + sigs[i].getId());
-      if (sigs[i] == null)
+      if (sigs[i] == null) {
         throw new ThresholdSigException("Null signature");
-      if (haveSig[sigs[i].getId() - 1])
-        throw new ThresholdSigException("Duplicate signature: "
-            + sigs[i].getId());
+      }
+      if (haveSig[sigs[i].getId() - 1]) {
+        throw new ThresholdSigException("Duplicate signature: " + sigs[i].getId());
+      }
       haveSig[sigs[i].getId() - 1] = true;
     }
 
@@ -165,9 +165,9 @@ public class SigShare {
 
     BigInteger w = BigInteger.valueOf(1l);
 
-    for (int i = 0; i < k; i++)
-      w = w.multiply(sigs[i].getSig().modPow(
-          SigShare.lambda(sigs[i].getId(), sigs, delta), n));
+    for (int i = 0; i < k; i++) {
+      w = w.multiply(sigs[i].getSig().modPow(SigShare.lambda(sigs[i].getId(), sigs, delta), n));
+    }
 
     // eprime = delta^2*4
     final BigInteger eprime = delta.multiply(delta).shiftLeft(2);
@@ -185,8 +185,9 @@ public class SigShare {
    */
   private static BigInteger factorial(final int l) {
     BigInteger x = BigInteger.valueOf(1l);
-    for (int i = 1; i <= l; i++)
+    for (int i = 1; i <= l; i++) {
       x = x.multiply(BigInteger.valueOf(i));
+    }
 
     return x;
   }
@@ -194,14 +195,9 @@ public class SigShare {
   /**
    * Compute lagarange interpolation points Reference: Shoup, pg 7.
    * 
-   * @param p -
-   *          a polynomial to evaluate these points on
-   * @param ik -
-   *          a point in S
-   * @param S -
-   *          a set of k points in {0...l}
-   * @param delta -
-   *          the factorial of the group size
+   * @param ik - a point in S
+   * @param S - a set of k points in {0...l}
+   * @param delta - the factorial of the group size
    * 
    * @return the Lagarange interpolation of these points at 0
    */
@@ -210,19 +206,23 @@ public class SigShare {
     // lambda(id,l) = PI {id!=j, 0<j<=l} (i-j')/(id-j')
     BigInteger value = delta;
 
-    for (final SigShare element : S)
-      if (element.getId() != ik)
+    for (final SigShare element : S) {
+      if (element.getId() != ik) {
         value = value.multiply(BigInteger.valueOf(element.getId()));
+      }
+    }
 
-    for (final SigShare element : S)
-      if (element.getId() != ik)
+    for (final SigShare element : S) {
+      if (element.getId() != ik) {
         value = value.divide(BigInteger.valueOf((element.getId() - ik)));
+      }
+    }
 
     return value;
   }
 
   // Debugging
-  // ............................................................................
+  //............................................................................
   private static void debug(final String s) {
     System.err.println("SigShare: " + s);
   }

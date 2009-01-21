@@ -13,64 +13,54 @@ import java.math.BigInteger;
 public class Dealer {
 
   // Constants and variables
-  // ............................................................................
+  //............................................................................
   private int keysize;
-
   private KeyShare[] shares = null;
-
   /** Group Verifier */
   private BigInteger vk = null;
-
   /** Group Key */
   private GroupKey gk;
-
   /** Indicates whether this dealer has initialized a set of keys */
   private boolean keyInit;
-
   /** Randomly generated polynomial used to generate shares */
   private Poly poly;
 
   // Constructors
-  // ............................................................................
+  //............................................................................
 
   /**
    * Create a new instance of a key dealer
    * 
-   * @param provider -
-   *          the provider to use for RSA KeyPair generator
-   * @param keysize -
-   *          the size of the group key
+   * @param keysize - the size of the group key
    */
   public Dealer(final int keysize) {
-    if (DEBUG)
+    if (DEBUG) {
       debug("Testing " + keysize + " bit Keys...");
+    }
     this.keysize = keysize;
-    this.keyInit = false;
+    keyInit = false;
   }
 
   // Public Methods
-  // ............................................................................
-
+  //............................................................................
   /**
    * Generate a group public key and l shares for a (k,l) <BR>
    * threshold signatures scheme<BR>
    * 
-   * @param k -
-   *          k valid signatures will verify
-   * @param l -
-   *          l members of the group will receive shares
+   * @param k - k valid signatures will verify
+   * @param l - l members of the group will receive shares
    * 
    * @throws ThresholdSigException
    */
   public void generateKeys(final int k, final int l) {
-
     BigInteger pr, qr, p, q, d, e, m, n;
     BigInteger groupSize;
     n = m = pr = qr = null;
 
     // Create the group key pair
-    if (DEBUG)
+    if (DEBUG) {
       debug("Attempting to generate group keypair..");
+    }
 
     /* Generate a Sophie Germain prime keypair */
     // pr = generateSophieGermainPrime();
@@ -84,9 +74,6 @@ public class Dealer {
     // m = pr*qr
     m = pr.multiply(qr);
 
-    // p = 2*pr + 1
-    // p = (pr.multiply(TWO)).add(ONE);
-
     // q = 2*qr + 1
     // q = (qr.multiply(TWO)).add(ONE);
 
@@ -98,11 +85,12 @@ public class Dealer {
     groupSize = BigInteger.valueOf(l);
 
     // If group size is less than Fermat's prime, just use it.
-    if (groupSize.compareTo(ThreshUtil.F4) < 0)
+    if (groupSize.compareTo(ThreshUtil.F4) < 0) {
       e = ThreshUtil.F4;
-    // Otherwise pick a prime bigger then groupSize
-    else
+      // Otherwise pick a prime bigger then groupSize
+    } else {
       e = new BigInteger(groupSize.bitLength() + 1, 80, ThreshUtil.getRandom());
+    }
 
     // Note: This is not a standard RSA Key Pair
     // Usually:
@@ -112,14 +100,14 @@ public class Dealer {
 
     // Create Secret KeyShares and KeyShare Verifiers
     // Note: We don't use the private exponent 'd' after this
-    shares = this.generateKeyShares(d, m, k, l, n);
+    shares = generateKeyShares(d, m, k, l, n);
 
     // Create verification shares
-    vk = this.generateVerifiers(n, shares);
+    vk = generateVerifiers(n, shares);
 
     // Create a group key
-    this.gk = new GroupKey(k, l, keysize, vk, e, n);
-    this.keyInit = true;
+    gk = new GroupKey(k, l, keysize, vk, e, n);
+    keyInit = true;
   }
 
   /**
@@ -127,7 +115,7 @@ public class Dealer {
    */
   public GroupKey getGroupKey() throws ThresholdSigException {
     checkKeyInit();
-    return this.gk;
+    return gk;
   }
 
   /**
@@ -139,40 +127,38 @@ public class Dealer {
   }
 
   // Initialization Checks
-  // ............................................................................
+  //............................................................................
 
   private void checkKeyInit() throws ThresholdSigException {
     if (keyInit == false) {
-      if (DEBUG)
+      if (DEBUG) {
         debug("Key pair has not been initialized by generateKeys()");
-      throw new ThresholdSigException(
-          "Key pair has not been initialized by generateKeys()");
+      }
+      throw new ThresholdSigException("Key pair has not been initialized by generateKeys()");
     }
   }
 
   // Private Methods
-  // ............................................................................
+  //............................................................................
   /**
    * 
    * Generates secret shares for a (k,l) threshold signatures scheme<BR>
    * 
-   * @param k -
-   *          k valid signatures will verify
-   * @param l -
-   *          l members of the group will receive shares
+   * @param k - k valid signatures will verify
+   * @param l - l members of the group will receive shares
    * 
    * @return An array of l secret shares
    * @throws ThresholdSigException
    */
   // TODO: Merge Dealer.generateShares and Dealer.generateVerifiers
   // and generate them simultaneously
-  private KeyShare[] generateKeyShares(final BigInteger d, final BigInteger m,
-      final int k, final int l, final BigInteger n) {
+  private KeyShare[] generateKeyShares(final BigInteger d, final BigInteger m, final int k,
+      final int l, final BigInteger n) {
     BigInteger[] secrets;
     BigInteger rand;
     int randbits;
 
-    this.poly = new Poly(d, k - 1, m);
+    poly = new Poly(d, k - 1, m);
     secrets = new BigInteger[l];
     randbits = n.bitLength() + ThreshUtil.L1 - m.bitLength();
 
@@ -187,8 +173,9 @@ public class Dealer {
     final BigInteger delta = Dealer.factorial(l);
 
     final KeyShare[] s = new KeyShare[l];
-    for (int i = 0; i < l; i++)
+    for (int i = 0; i < l; i++) {
       s[i] = new KeyShare(i + 1, secrets[i], n, delta);
+    }
 
     return s;
   }
@@ -199,20 +186,15 @@ public class Dealer {
    * Computes v[i] = v^^s[i] mod n, where v is an element of QR_n <BR>
    * Returns the group verifier and sets the verifier in each share<br>
    * 
-   * @param n -
-   *          Size of modulo for group key
-   * @param secrets -
-   *          array of shares
+   * @param n - Size of modulo for group key
+   * @param secrets - array of shares
    * 
    * @return the group verifier
    */
   // TODO: Merge Dealer.generateShares and Dealer.generateVerifiers
   // and generate them simultaneously
-  private BigInteger generateVerifiers(final BigInteger n,
-      final KeyShare[] secrets) {
-
+  private BigInteger generateVerifiers(final BigInteger n, final KeyShare[] secrets) {
     debug("Generating Verifiers");
-
     // BigInteger[] v;
     BigInteger rand = null;
 
@@ -224,8 +206,9 @@ public class Dealer {
         rand = new BigInteger(n.bitLength(), ThreshUtil.getRandom());
         // ensure that rand is relatively prime to n
         final BigInteger d = rand.gcd(n);
-        if (d.compareTo(ThreshUtil.ONE) == 0)
+        if (d.compareTo(ThreshUtil.ONE) == 0) {
           break;
+        }
         // Else d was not relatively prime
         // Note: This should be very rare
         debug("Verifier was not relatively prime");
@@ -247,14 +230,15 @@ public class Dealer {
    */
   private static BigInteger factorial(final int l) {
     BigInteger x = BigInteger.valueOf(1l);
-    for (int i = 1; i <= l; i++)
+    for (int i = 1; i <= l; i++) {
       x = x.multiply(BigInteger.valueOf(i));
+    }
 
     return x;
   }
 
   // Debugging
-  // ............................................................................
+  //............................................................................
 
   private final static boolean DEBUG = true;
 
@@ -264,36 +248,14 @@ public class Dealer {
 
   public static void main(final String[] args) {
     int keysize = 512;
-    if (args.length > 0)
+    if (args.length > 0) {
       try {
         keysize = Integer.parseInt(args[0]);
       } catch (final Exception e) {
       }
+    }
 
     final Dealer d = new Dealer(keysize);
     d.generateKeys(3, 5);
-
-  }
-
-  // Self-Testing and Verification Methods
-  // ............................................................................
-
-  // debug
-  private void verifyPoly() {
-    final Poly f = new Poly(ThreshUtil.ONE, 4, ThreshUtil.FOUR);
-    debug(f.toString());
-    debug(f.eval(0).toString(10));
-    debug(f.eval(1).toString(10));
-    debug(f.eval(2).toString(10));
-  }
-
-  // debug
-  private void verifyKeyShares(final Poly f, final BigInteger secrets[],
-      final BigInteger m) {
-    for (final BigInteger element : secrets) {
-      debug("Secret: " + element.toString(16));
-      debug("f(i) mod m: " + element.mod(m).toString(16));
-      debug("Secret mod m: " + element.mod(m).toString(16));
-    }
   }
 }

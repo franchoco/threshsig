@@ -11,8 +11,8 @@ class Verifier {
 
   private BigInteger shareVerifier;
 
-  public Verifier(final BigInteger z, final BigInteger c,
-      final BigInteger shareVerifier, final BigInteger groupVerifier) {
+  public Verifier(final BigInteger z, final BigInteger c, final BigInteger shareVerifier,
+      final BigInteger groupVerifier) {
     this.z = z;
     this.c = c;
     this.shareVerifier = shareVerifier;
@@ -20,18 +20,18 @@ class Verifier {
   }
 
   public BigInteger getZ() {
-    return this.z;
+    return z;
   }
 
   public BigInteger getShareVerifier() {
-    return this.shareVerifier;
+    return shareVerifier;
   }
 
   public BigInteger getGroupVerifier() {
-    return this.groupVerifier;
+    return groupVerifier;
   }
 
   public BigInteger getC() {
-    return this.c;
+    return c;
   }
 }

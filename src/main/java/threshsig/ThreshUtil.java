@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 
 class ThreshUtil {
   // Constants and variables
-  // ............................................................................
+  //............................................................................
   protected final static BigInteger ZERO = BigInteger.ZERO;
 
   protected final static BigInteger ONE = BigInteger.ONE;
