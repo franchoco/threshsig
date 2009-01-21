@@ -24,8 +24,8 @@ public class GroupKey {
   /** The RSA modulus of the groupKeyPair */
   private BigInteger n;
 
-  public GroupKey(final int k, final int l, final int keysize,
-      final BigInteger v, final BigInteger e, final BigInteger n) {
+  public GroupKey(final int k, final int l, final int keysize, final BigInteger v,
+      final BigInteger e, final BigInteger n) {
     this.k = k;
     this.l = l;
     this.e = e;
@@ -38,7 +38,7 @@ public class GroupKey {
    * @return The minimum threshold size for this group 'k'.
    */
   public int getK() {
-    return this.k;
+    return k;
   }
 
   /**
@@ -47,7 +47,7 @@ public class GroupKey {
    * @return The size of this key's associated group.
    */
   public int getL() {
-    return this.l;
+    return l;
   }
 
   /**
@@ -56,7 +56,7 @@ public class GroupKey {
    * @return This group's modulus.
    */
   public BigInteger getModulus() {
-    return this.n;
+    return n;
   }
 
   /**
@@ -65,6 +65,6 @@ public class GroupKey {
    * @return This group's exponent
    */
   public BigInteger getExponent() {
-    return this.e;
+    return e;
   }
 }

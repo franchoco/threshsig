@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="34.45" errors="0" skipped="0" tests="4" name="threshsig.ThreshTest">
+  <properties>
+    <property name="java.vendor" value="Sun Microsystems Inc."/>
+    <property name="env.SESSION_MANAGER" value="local/gza.sfo.corp.google.com:/tmp/.ICE-unix/9074"/>
+    <property name="env.LESSOPEN" value="|/usr/bin/lesspipe %s"/>
+    <property name="localRepository" value="/home/sweis/.m2/repository"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="env.GFS_CLIENT_SECURITY_LEVEL" value="integrity"/>
+    <property name="sun.management.compiler" value="HotSpot Server Compiler"/>
+    <property name="env.MAILCHECK" value="no"/>
+    <property name="os.name" value="Linux"/>
+    <property name="env.PYTHONPATH" value="/usr/local/buildtools/current/sitecustomize"/>
+    <property name="sun.boot.class.path" value="/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/resources.jar:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/rt.jar:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/sunrsasign.jar:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/jsse.jar:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/jce.jar:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/charsets.jar:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/classes"/>
+    <property name="env.PWD" value="/home/sweis"/>
+    <property name="sun.desktop" value="gnome"/>
+    <property name="env.LANG" value="en_US"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="java.runtime.version" value="1.6.0_01-b06"/>
+    <property name="env.DISPLAY" value=":0.0"/>
+    <property name="user.name" value="sweis"/>
+    <property name="env._" value="/opt/eclipse/eclipse"/>
+    <property name="env.USER" value="sweis"/>
+    <property name="env.SHELL" value="/bin/bash"/>
+    <property name="env.MOZILLA_FIVE_HOME" value="/usr/lib/mozilla"/>
+    <property name="env.DESKTOP_SESSION" value="default"/>
+    <property name="env.NLSPATH" value="/usr/dt/lib/nls/msg/%L/%N.cat"/>
+    <property name="env.PATH" value="/usr/local/buildtools/java/jdk1.6.0_01_gg1/bin:/usr/local/symlinks:/usr/local/scripts:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/bin/X11:/usr/local/apache-maven-2.0.9/bin/:/home/build/static/projects/keymaster/"/>
+    <property name="user.language" value="en"/>
+    <property name="env.P4DIFF" value="/home/build/public/google/tools/p4diff -b"/>
+    <property name="env.LC_MONETARY" value="C"/>
+    <property name="sun.boot.library.path" value="/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386"/>
+    <property name="java.version" value="1.6.0_01"/>
+    <property name="user.timezone" value=""/>
+    <property name="env.DBUS_SESSION_BUS_ADDRESS" value="unix:abstract=/tmp/dbus-gr7SpGKC7K,guid=f64362494755196cac8f6fee3f109800"/>
+    <property name="sun.arch.data.model" value="32"/>
+    <property name="env.SSH_AGENT_PID" value="9146"/>
+    <property name="java.endorsed.dirs" value="/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/endorsed"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="ISO-8859-1"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="env.SHLVL" value="1"/>
+    <property name="env.HOSTNAME" value="gza.sfo.corp.google.com"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="env.GNOME_DESKTOP_SESSION_ID" value="Default"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="env.GDMSESSION" value="default"/>
+    <property name="user.country" value="US"/>
+    <property name="env.PRINTER" value="alcatraz"/>
+    <property name="java.home" value="/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="env.KRB5CCNAME" value="FILE:/var/run/ccache/krb5cc_28160"/>
+    <property name="env.LOGNAME" value="sweis"/>
+    <property name="os.version" value="2.6.18.5-gg42workstation-mixed64-32"/>
+    <property name="env.PARINIT" value="rTbgqR B=.?_A_a Q=_s&gt;|:"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.version" value="1.6.0_01-b06"/>
+    <property name="env.LANGUAGE" value="en"/>
+    <property name="env.GOOGLE_USE_CORP_SSL_AGENT" value="true"/>
+    <property name="env.P4MERGE" value="/home/build/public/eng/perforce/mergep4.tcl"/>
+    <property name="env.JAVA_HOME" value="/usr/local/buildtools/java/jdk1.6.0_01/"/>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="user.home" value="/home/sweis"/>
+    <property name="env.LD_PRELOAD" value="/usr/crosstool/v11/gcc-4.2.2-glibc-2.3.6-grte/i686-unknown-linux-gnu/i686-unknown-linux-gnu/lib/libstdc++.so"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="java.library.path" value="/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386/server:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/../lib/i386:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386/client:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386:/usr/lib/mozilla:/usr/lib/mozilla:/usr/java/packages/lib/i386:/lib:/usr/lib"/>
+    <property name="java.vendor.url" value="http://java.sun.com/"/>
+    <property name="env.GDM_XSERVER_LOCATION" value="local"/>
+    <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+    <property name="env.P4EDITOR" value=""/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="java.class.path" value="/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/aspectjrt-1.5.3.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/commons-cli-1.0.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/doxia-sink-api-1.0-alpha-9.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/jsch-0.1.27.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/jtidy-4aug2000r7-dev.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-artifact-3.0-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-core-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-embedder-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-lifecycle-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-model-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-plugin-api-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-profile-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-project-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-reporting-api-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-toolchain-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/maven-workspace-2.1-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/plexus-classworlds-1.2-alpha-12.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/plexus-container-default-1.0-alpha-44.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/plexus-interactivity-api-1.0-alpha-6.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/plexus-interpolation-1.0-SNAPSHOT.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/plexus-utils-1.5.1.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/wagon-file-1.0-beta-2.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/wagon-http-lightweight-1.0-beta-2.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/wagon-http-shared-1.0-beta-2.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/wagon-provider-api-1.0-beta-2.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/wagon-ssh-1.0-beta-2.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/wagon-ssh-common-1.0-beta-2.jar:/usr/local/google/users/sweis/eclipse/dotdir/org.eclipse.platform_3.4.0_1473617060/plugins/org.maven.ide.components.maven_embedder_2.1.0.20080530-2300/jars/wagon-ssh-external-1.0-beta-2.jar"/>
+    <property name="env.CVS_RSH" value="ssh"/>
+    <property name="env.XFILESEARCHPATH" value="/usr/dt/app-defaults/%L/Dt"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="env.MAVEN_OPT" value="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8080,server=y,suspend=n"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="env.GTK_RC_FILES" value="/etc/gtk/gtkrc:/home/sweis/.gtkrc-1.2-gnome2"/>
+    <property name="env.HOME" value="/home/sweis"/>
+    <property name="surefire.test.class.path" value="/home/sweis/workspace/threshsig/target/test-classes:/home/sweis/workspace/threshsig/target/classes:/home/sweis/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="env.LD_LIBRARY_PATH" value="/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386/server:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/../lib/i386:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386/client:/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/i386:/usr/lib/mozilla:/usr/lib/mozilla"/>
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+    <property name="env.SSH_AUTH_SOCK" value="/tmp/ssh-ZpzwWi9074/agent.9074"/>
+    <property name="env.KDE_NO_IPV6" value="1"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+    <property name="os.arch" value="i386"/>
+    <property name="java.ext.dirs" value="/usr/local/buildtools/java/jdk1.6.0_01_gg1/jre/lib/ext:/usr/java/packages/lib/ext"/>
+    <property name="user.dir" value="/home/sweis/workspace/threshsig"/>
+    <property name="env.XAUTHORITY" value="/tmp/.gdmgabH06"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) Server VM"/>
+    <property name="env.P4CONFIG" value=".p4config"/>
+    <property name="env.RSYNC_RSH" value="ssh"/>
+    <property name="env.LC_NUMERIC" value="C"/>
+    <property name="basedir" value="/home/sweis/workspace/threshsig"/>
+    <property name="maven.mode.standalone" value="true"/>
+    <property name="env.USERNAME" value="sweis"/>
+    <property name="env.LC_TIME" value="C"/>
+    <property name="file.encoding" value="ISO-8859-1"/>
+    <property name="env.GNOME_KEYRING_SOCKET" value="/tmp/keyring-g5TJSV/socket"/>
+    <property name="env.MAIL" value="/dev/null"/>
+    <property name="env.LC_COLLATE" value="C"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="env.LESSCLOSE" value="/usr/bin/lesspipe %s %s"/>
+  </properties>
+  <testcase time="2.806" classname="threshsig.ThreshTest" name="testVerifySignatures"/>
+  <testcase time="4.271" classname="threshsig.ThreshTest" name="testVerifySignaturesAgain"/>
+  <testcase time="3.466" classname="threshsig.ThreshTest" name="testVerifyBadSignature"/>
+  <testcase time="23.825" classname="threshsig.ThreshTest" name="testPerformance"/>
+</testsuite>
