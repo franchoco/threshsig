@@ -79,6 +79,10 @@ public class ThreshTest extends TestCase {
   }
 
   public void testVerifyBadSignature() {
+	final int[] T = { 8, 9, 7, 6, 1, 12 };
+	for (int i = 0; i < K; i++)
+	  sigs[i] = keys[T[i]].sign(b);
+
     b = "corrupt data".getBytes();
     sigs[3] = keys[3].sign(b);
     assertFalse(SigShare.verify(b, sigs, K, L, gk.getModulus(), gk
