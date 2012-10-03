@@ -1,8 +1,15 @@
 package threshsig;
 
 import java.math.BigInteger;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.Signature;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.RSAPrivateKeySpec;
 import java.util.Random;
 
 /**
@@ -41,7 +48,12 @@ public class KeyShare {
     (new Random()).nextBytes(randSeed);
     random = new SecureRandom(randSeed);
   }
+  
+  // Hash-Scheme for RSA-compatible signatures
+  private String rsaSigType = "SHA1withRSA";
+  private RSAPrivateKey identityKey;
 
+  
   // Constructors
   //............................................................................
 
@@ -151,6 +163,94 @@ public class KeyShare {
     return new SigShare(id, x.modPow(signVal, n), ver);
   }
 
+  /**
+   * Set type of signature (hash and padding) for RSA compatibility.
+   * There must be a RSA Signature provider installed for the
+   * specified type
+   * @param type 
+   */
+  public void setRSASigType(String type) {
+	  rsaSigType = type;
+  }
+  
+  /**
+   * Calculate Hash and add padding, then create a SigShare
+   * using SigShare.sign<BR>
+   * 
+   * @param b The array of bytes to produce a signature share for.
+   * @return a sig share with a verifier
+   * @throws NoSuchAlgorithmException 
+   */
+  public SigShare rsasign(final byte[] b) throws NoSuchAlgorithmException {
+	  byte[] data = paddeddigest(b);
+	  return sign(data);
+  }
+  
+  /**
+   * Calculate Hash and add padding compatible to standard RSA
+   * signature.
+   * Key size is used defined in the constructure, hash/padding type
+   * can be set by setRSASigType and defaults to "SHA1withRSA"
+   *  
+   * @param b The array of bytes to produce a hash with padding for.
+   * @return padded hash
+   */
+  public byte[] paddeddigest(final byte[] b) throws NoSuchAlgorithmException {
+	  if(identityKey==null) {
+		  // initialize identityKey upon first use
+		  KeyFactory key_factory = KeyFactory.getInstance("RSA");
+	  	  RSAPrivateKeySpec rsaspec = new RSAPrivateKeySpec(n, ThreshUtil.ONE);
+	  	  try {
+			  identityKey = (RSAPrivateKey) key_factory.generatePrivate( rsaspec );
+		  } catch (InvalidKeySpecException e) {
+			  throw new RuntimeException("FATAL ERROR: should never happen",e);
+		  }
+	  }
+	  return paddeddigest(b, identityKey, rsaSigType);
+  }
+  
+  /**
+   * Calculate Hash and add padding compatible to standard RSA
+   * signature.
+   *  
+   * @param b The array of bytes to produce a hash with padding for.
+   * @param n The modulus of the RSA key (used for determining the key size)
+   * @param rsaSigType String (as in JCE) to select Hash/Padding (e.g., "SHA1withRSA"),
+   *                   which needs to be supported by some JCE crypto provider.
+   * @return padded hash
+   */
+  public static byte[] paddeddigest(final byte[] b, BigInteger n, String rsaSigType) {
+  	  try {
+  		  KeyFactory key_factory = KeyFactory.getInstance("RSA");
+  		  RSAPrivateKeySpec rsaspec = new RSAPrivateKeySpec(n, ThreshUtil.ONE);
+		  RSAPrivateKey identityKey = (RSAPrivateKey) key_factory.generatePrivate( rsaspec );
+		  return paddeddigest(b, identityKey, rsaSigType);
+	  } catch (GeneralSecurityException e) {
+		  throw new RuntimeException("FATAL ERROR: should never happen",e);
+	  }
+  }
+  
+  private static byte[] paddeddigest(final byte[] b, RSAPrivateKey identityKey, String rsaSigType) throws NoSuchAlgorithmException {
+	  /*
+	   * As JCA does not offer any public method for creating RSA padding,
+	   * we simply create a regular RSA signature with private exponent 1
+	   * the signing key is either created once on first use (instance method)
+	   * or created on each call (static class method)
+	   */
+	  Signature instance = Signature.getInstance(rsaSigType);
+	  byte[] paddedhash = null;
+	  try {
+		  instance.initSign(identityKey);
+		  instance.update(b);
+		  paddedhash = instance.sign();
+	  } catch (GeneralSecurityException e) {
+		  // should never ever happen
+		  e.printStackTrace();
+	  }
+	  return paddedhash;
+  }
+  
+  
   // Debugging
   //............................................................................
   private static void debug(final String s) {
