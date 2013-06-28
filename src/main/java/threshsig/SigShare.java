@@ -239,7 +239,11 @@ private static void validateSigs(final SigShare[] sigs, final int k, final int l
 
     return value;
   }
-  
+ 
+   private static int getByteLength(BigInteger b) {
+       int n = b.bitLength();
+       return (n + 7) >> 3;
+   } 
   
   public static byte[] combine(final byte[] input, final SigShare[] sigs, final int k, final int l,
 		  final RSAPublicKey pubk) {
@@ -257,9 +261,8 @@ private static void validateSigs(final SigShare[] sigs, final int k, final int l
       final BigInteger[] dab = extEuclid(eprime, e);
       BigInteger y = w.modPow(dab[1], n).multiply( x.modPow(dab[2],n) );
       y = y.mod(n);
-      byte[] joinedSig = bigintToBytes(y, sun.security.rsa.RSACore.getByteLength(n));
-      
-	  return joinedSig;
+      byte[] joinedSig = bigintToBytes(y, getByteLength(n));
+      return joinedSig;
   }
 
   /**
