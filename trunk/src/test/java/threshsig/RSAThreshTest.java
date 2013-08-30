@@ -6,6 +6,7 @@ import static junit.framework.Assert.assertTrue;
 import junit.framework.TestCase;
 
 import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
 import java.security.interfaces.RSAPublicKey;
@@ -22,7 +23,8 @@ public class RSAThreshTest extends TestCase {
   private static final SigShare[] sigs = new SigShare[K];
 
   @Override
-  protected void setUp() {
+  protected void setUp() throws InvalidKeyException {
+	KeyShare[] newkeys;
     (new Random()).nextBytes(data);
     
     // Initialize a dealer with a keysize
@@ -44,7 +46,14 @@ public class RSAThreshTest extends TestCase {
     // This should be destroyed, unless you want to reuse the
     // Special Primes of the group key to generate a new set of
     // shares
-    keys = d.getShares();
+    newkeys = d.getShares();
+    
+    // externalize and retrieve key shares
+    keys = new KeyShare[newkeys.length];
+    for(int i=0; i<newkeys.length; i++) {
+    		byte[] keydata = newkeys[i].wrap();
+    		keys[i] = KeyShare.unwrap(keydata);
+    }
   }
 
   public void testVerifySignatures() throws GeneralSecurityException {
