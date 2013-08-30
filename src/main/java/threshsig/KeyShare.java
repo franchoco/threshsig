@@ -1,7 +1,12 @@
 package threshsig;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -79,6 +84,42 @@ public class KeyShare {
     signVal = ThreshUtil.FOUR.multiply(delta).multiply(secret);
   }
 
+  // Wrap/Unwrap Methods
+  public static KeyShare unwrap(byte[] keydata) throws InvalidKeyException {
+		try {
+			ObjectInputStream oin = new ObjectInputStream(new ByteArrayInputStream(keydata));
+			int id = oin.readInt();
+			BigInteger secret = (BigInteger) oin.readObject();
+			BigInteger n = (BigInteger) oin.readObject();
+			BigInteger delta = (BigInteger) oin.readObject();
+			KeyShare ks = new KeyShare(id, secret, n, delta);
+		
+			BigInteger verifier = (BigInteger)oin.readObject();
+			BigInteger groupverifier = (BigInteger)oin.readObject();
+			ks.setVerifiers(verifier, groupverifier);
+			return ks;
+		}
+		catch(Exception ex) {
+			throw new InvalidKeyException();
+		}
+	}
+	
+	public byte[] wrap() throws InvalidKeyException {
+		ByteArrayOutputStream bo = new ByteArrayOutputStream();
+		try {
+			ObjectOutputStream oout = new ObjectOutputStream(bo);
+			oout.writeInt(getId());
+			oout.writeObject(getSecret());
+			oout.writeObject(n);
+			oout.writeObject(delta);
+			oout.writeObject(verifier);
+			oout.writeObject(groupVerifier);
+			oout.close();
+		} catch(Exception ex) {
+			throw new InvalidKeyException();
+		}
+		return bo.toByteArray();
+	}
   // Public Methods
   //............................................................................
 
@@ -89,6 +130,14 @@ public class KeyShare {
   public BigInteger getSecret() {
     return secret;
   }
+  
+  public BigInteger getN() {
+	  return n;
+  }
+  
+  public BigInteger getDelta() {
+	  return delta;
+  }
 
   public void setVerifiers(final BigInteger verifier, final BigInteger groupVerifier) {
     this.verifier = verifier;
@@ -97,6 +146,10 @@ public class KeyShare {
 
   public BigInteger getVerifier() {
     return verifier;
+  }
+  
+  public BigInteger getGroupVerifier() {
+	  return groupVerifier;
   }
 
   public BigInteger getSignVal() {
